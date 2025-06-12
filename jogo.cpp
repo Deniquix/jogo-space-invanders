@@ -10,17 +10,17 @@ int mapa[TAM][TAM] = {
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -45,6 +45,7 @@ int px = -1, py = -1;
 DWORD ultimoTempo = GetTickCount();
 DWORD ultimoTempoInimigo = GetTickCount();
 DWORD ultimoTempocronometro = GetTickCount();
+DWORD fimdejogotempo = GetTickCount();
 
 
 
@@ -164,6 +165,21 @@ void cronometro(){
         minutos = 0;
     }
 
+    //serve pra aumenta a velocidade do inimigo baseado no tempo, ao inves de usar segundos usar a quantidade de inimigos mortos e tirar do cronometro e bota em uma funçao
+    if(segunda == 1){
+        velocidadeinimigo = 500;
+    }
+    if(segunda == 3){
+        velocidadeinimigo = 200;
+    }
+    if(segunda == 7){
+        velocidadeinimigo = 50;
+    }
+
+
+    //cout do cronometro
+
+    cout << "tempo: ";
     if(horas > 9){
         cout << horas << " ";
     }else{
@@ -175,10 +191,14 @@ void cronometro(){
         cout << "0" << minutos << " ";
     }
     if(segunda > 9){
-        cout << segunda << " ";
+        cout << segunda << " " << endl;
     }else{
-        cout << "0" << segunda << " ";
+        cout << "0" << segunda << " " << endl;
     }
+
+
+    //pra ve a velocidade do inimigo
+    cout <<"velocidade do inimigo: " << velocidadeinimigo << "              ";
 
 
 }
@@ -199,10 +219,14 @@ int main() {
         if(ix == x && iy == y){
             return 0;
         }
+        if(inimigoVivo == false){
+            cout << "Vitoria!!!";
+            return 0;
+        }
         //verificador de tempo, cada 1000 e um segundo, assim quando passar 50 segundos acaba o jogo.
-         if (GetTickCount() - ultimoTempocronometro > 50000){
+         /*if (GetTickCount() - fimdejogotempo > 1000){
              return 0;
-         }
+         }*/
 
     }
 
