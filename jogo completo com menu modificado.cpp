@@ -720,7 +720,7 @@ void menuConfiguracoes() {
     bool sair = false;
 
     while (!sair) {
-        system("cls");
+
         mudarCor(7);
 
         textoCentralizado("CONFIGURACOES", 11);
